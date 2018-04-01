@@ -1,6 +1,7 @@
-# Chapter 12 Tree Map
+# Chapter 15 Tree Map
 
 Author: Zhihua Lv
+
 Translated by Huijun Cui 
 
 The tree map can show the including and included relationships between nodes
