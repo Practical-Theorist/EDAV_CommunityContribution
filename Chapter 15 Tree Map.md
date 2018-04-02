@@ -76,7 +76,7 @@ Now we have data as follows：
 ```
 These data indicate the inclusion relationships between 'China - Province - City'.
 
-## Latout (data conversion)
+## Layout (data conversion)
 
 Now we can define a cluster diagram layout:
 
