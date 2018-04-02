@@ -1,10 +1,10 @@
-# Chapter 15 Tree Map
+# Chapter 15 Tree
 
 Author: Zhihua Lv
 
 Translated by Huijun Cui 
 
-The tree map can show the including and included relationships between nodes
+The tree can show the including and included relationships between nodes
 
 ## Data
 
@@ -156,7 +156,7 @@ var link = svg.selectAll(".link")
 
 When we want to draw nodes, it is more recommended to use <circle> from <svg>, just as it was used in some part above. The final result is:
 
-![tree map](./images/tree-3.png)
+![tree](./images/tree-3.png)
 
 ## Source Code
 
