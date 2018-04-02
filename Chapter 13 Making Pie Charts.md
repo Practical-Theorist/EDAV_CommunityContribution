@@ -44,11 +44,11 @@ As shown above, 5 integers are tranformed to 5 objects, and every object has var
 
 What should be remembered here is: **Layout is not to draw a graph directly, but to gain data needed for drafting**。
 
-## Drawing graphics
+## Drawing graphs
 
 In order to plot according to converted data piedata, we still need a tool: generator.
 
-SVG has an element called path, which is the most powerful element in SVG, can represent any other graphics. Just as its name suggests，the path element draws varieties of graphics by means of defining a path. However, path is very hard to be calculated, the data obtained from layout conversion -- piedata is still very difficult to be calculated mannually to gain the path value. Something help us to accomplish this assignment is**generator**。
+SVG has an element called path, which is the most powerful element in SVG, can represent any other graphs. Just as its name suggests，the path element draws varieties of graphs by means of defining a path. However, path is very hard to be calculated, the data obtained from layout conversion -- piedata is still very difficult to be calculated mannually to gain the path value. Something help us to accomplish this assignment is**generator**。
 
 The generator utilized here is **arc generator**, which is capable to generate arc path, since every part of a pie chart is an arc. 
 
@@ -63,7 +63,7 @@ var arc = d3.svg.arc()  //arc generator
 
 The results returned from arc generator are assigned to 'arc'. At this moment, 'arc' can be applied as a function, which means if the piedata is inputed as a parameter, the path value can be gained.
 
-After finishing the procedures above, we can settle down to add graphic elements to SVG. Firstly, we add a sufficient quantity (5) of grouping elements (g) to svg, and each group is to store the related elements of an arc. 
+After finishing the procedures above, we can settle down to add graph elements to SVG. Firstly, we add a sufficient quantity (5) of grouping elements (g) to svg, and each group is to store the related elements of an arc. 
 
 ```javascript
 var arcs = svg.selectAll("g")
