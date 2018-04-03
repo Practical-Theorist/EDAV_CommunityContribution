@@ -6,28 +6,27 @@ Layouts can be understood as 'functions for making common graphs'. It is much mo
 
 ## What is layout
 
-Literally, 可以想到有“决定什么元素绘制在哪里”的意思。布局是 D3 中一个十分重要的概念。D3 与其它很多可视化工具不同，相对来说较底层，对初学者来说不太方便，但是一旦掌握了，就比其他工具更加得心应手。下图展示了 D3 与其它可视化工具的区别：
+Literally, 'layout' seems to have the meaning that 'deciding where to plot what kinds of elements'. Layout is a very significant concept in D3. Compared with other visualization tools, D3 is not that user&beginner friendly. But once mastered, it is more handy and convenient than other tools. The picture below shows the differences between D3 and other visualization tools. 
 
 ![D3 and other tools](./images/layout-2.png)
 
-可以看到，D3 的步骤相对来说较多。坏处是对初学者不方便、也不好理解。好处是能够制作出更加精密的图形。因此，我们可以据此定义什么时候选择 D3 比较好：
+We can see that there are relatively more procedures of D3, which is not convenient for beginners to understand. However, the advantages are that it can help us to build more sophisticated graphs. As a result, now we can define when to choose D3 is better.  
 
-- 选择 D3：如果希望开发脑海中任意想象到的图表。
-- 选择 Highcharts、Echarts 等：如果希望开发几种固定种类的、十分大众化的图表。
+- Select D3: If you want to develop any imaginary chart in your mind. 
+- Select Highcharts, Echarts and etc.: If you want to develop some popularized charts with certain species. 
+It seems that D3 is provided for artists or enthusiasts, but beginners do not need to feel frustrated also.
 
-看起来，D3 似乎是为艺术家或发烧友准备的。有那么点意思，但请初学者也不要放弃。
+## How to understand the layout
 
-## 如何理解布局
+From the picture above we can conclude that the usage of layout is to make**data not suitable for plotting**convert to**data suitable for plotting**.
 
-从上面的图可以看到，布局的作用是：将**不适合用于绘图的数据**转换成了**适合用于绘图的数据**。
+Therefore, in order to make it easier to be understanded, we will explain the function of layout as: **Data Conversion**.
 
-因此，为了便于初学者理解，本站的教程叫布局的作用解释成：**数据转换**。
+## What are the results
 
-## 布局有哪些
+In all, D3 provides 12 kinds of layout, which are: Pie, Force, Chord, Tree, Cluster, Bundle, Pack, Histogram, Partition, Stack, Treemap, Hierarchy. 
 
-D3 总共提供了 12 个布局：饼状图（Pie）、力导向图（Force）、弦图（Chord）、树状图（Tree）、集群图（Cluster）、捆图（Bundle）、打包图（Pack）、直方图（Histogram）、分区图（Partition）、堆栈图（Stack）、矩阵树图（Treemap）、层级图（Hierarchy）。
-
-12 个布局中，Hierarchy can not be used straightforwardly. 不能直接使用。集群图、打包图、分区图、树状图、矩阵树图是由层级图扩展来的。如此一来，能够使用的布局是 11 个（有 5 个是由层级图扩展而来）。这些布局的作用都是将某种数据转换成另一种数据，而转换后的数据是利于可视化的。
+In the 12 layouts, hierarchy can not be used straightforwardly. Cluster, Pack, Partition, Tree, and Treemap are extended from Hierarchy. As a result, there are 11 layouts can be used (5 are extended from Hierarchy). The function of these layouts is to transform one kind of data to another kind of data, and the data after conversion is more convenient to be visualized compared with the original data. 
 
 ### Bundle
 
