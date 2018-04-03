@@ -2,27 +2,27 @@
 
 In this chapter, we will take the map of China as an example to introduce the approach to making a map. 
 
-在数据可视化中，地图是很重要的一部分。很多情况会与地图有关联，如中国各省的人口多少，GDP多少等，都可以和地图联系在一起。
+In data visualization, making map is an indispensible part, and lots of situations can be connected with maps. For example, the population and GDP of each province in China can be associated with the map. 
 
-## 地图数据的获取
+## Acquisition of map data
 
-制作地图需要 JSON 文件。JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。关于 JSON 的语法格式，可以学习【[JSON 浅谈](http://www.ourd3js.com/wordpress/?cat=309)】系列。
+We need JSON files to make maps. JSON(JavaScript Object Notation) is a lightweight data exchange format. If you are interested in the syntax of JSON, can refer to [[JSON](http://www.ourd3js.com/wordpress/?cat=309)].
 
-将 JSON 的格式应用于地理上的文件，叫做 GeoJSON 文件。本文就是用这种文件绘制地图。
+The JSON format files applied to geography are called as GeoJSON files. In this aricle, we will use files of this format to draw a map. 
 
-那么如何获取中国地图的 GeoJSON 文件呢，真的有点麻烦，可以参照：[https://github.com/clemsos/d3-china-map](https://github.com/clemsos/d3-china-map)进行制作。这不仅需要安装一些东西，还要研究一下制作方法，对想直接下载获取中国地图的 GeoJSON 文件的朋友可能感觉很不舒服，呵呵，其实我也是这样。
+So how could we acquire the GeoJSON files of China map? It's a little bit difficult. We can consult this link: [https://github.com/clemsos/d3-china-map](https://github.com/clemsos/d3-china-map) to make maps. This not only requires installing something, but also studying the production method. Some friends wanting to obtain GeoJSON files of China map may feel uncomfortable. And honestly I also feel unhappy about this. 
 
-好吧，我辛苦一点，将制作好的中国地图放上来与大家分享。
+But I can share the China map I made by myself with you.
 
-中国地图的 GeoJSON 文件： [china.geojson](http://www.ourd3js.com/demo/rm/R-10.0/china.geojson)
+The GeoJSON file of China map: [china.geojson](http://www.ourd3js.com/demo/rm/R-10.0/china.geojson)
 
-这个文件是用 [Natural Earth](http://www.naturalearthdata.com/downloads/) 上的数据，经过提取后制作而成，我还去掉了很多无用的信息，只保留的中国的各省份的名字和 id 号，在这里先感谢 Natural Earth 提供的数据。
+The original data used in the file are from [Natural Earth](http://www.naturalearthdata.com/downloads/). I extracted some data and removed a lot of useless information, and only kept the province name and id number. Here I need to express my gratitude for Natural Earth. 
 
-本站还提供有其他国家、以及具体到中国县级的地理文件，希望为大家节省宝贵的时间，这个部分还是很麻烦的。对于只希望进行可视化的朋友来说，估计不想做这个工作。目前已经制作好的：
+Our site also provides geographical documents of other countries, and even of the county level places in China, hoping to save your valuable time. This part is really troublesome, but friends who only want to do visualization are likely not to like to do this work. Something has already been produced so far:
 
-- [世界地图和主要国家](http://www.ourd3js.com/wordpress/?p=668)
-- [中国省市级](http://www.ourd3js.com/wordpress/?p=638)
-- [中国县级](http://www.ourd3js.com/wordpress/?p=739)
+- [World map and main countries](http://www.ourd3js.com/wordpress/?p=668)
+- [Chinese provinces and cities](http://www.ourd3js.com/wordpress/?p=638)
+- [Chinese Counties](http://www.ourd3js.com/wordpress/?p=739)
 
 Now, we can start drawing the map. 
 
@@ -35,7 +35,7 @@ var projection = d3.geo.mercator()
     .translate([width/2, height/2]);
 ```
 
-由于 GeoJSON 文件中的地图数据，都是经度和纬度的信息。它们都是三维的，而要在网页上显示的是二维的，所以要设定一个投影函数来转换经度纬度。如上所示，使用 d3.geo.mercator() 的投影方式。各种投影的函数，可以参考： [https://github.com/mbostock/d3/wiki/Geo-Projections](https://github.com/mbostock/d3/wiki/Geo-Projections)
+Because the geographic information from GeoJSON files are all longitudes and altitudes.They are all 3-dimensional information, but what should be displayed on websites are 2-dimensional, so we want to define a projection function to convert longitude information and lattitude information. As shown above, we used the peojection method 'd3.geo.mercator()'. Various projection functions can be found here: [https://github.com/mbostock/d3/wiki/Geo-Projections](https://github.com/mbostock/d3/wiki/Geo-Projections)
 
 Line 2: center() Set the center of a map. [107,31] refer to longitude and alttitude. 
 
@@ -43,16 +43,16 @@ Line 3: scale() Set the magnification ratio.
 
 Line 4: translate() Set panning.
 
-## 地理路径生成器
+## Geographic Path Generator
 
-为了根据地图的地理数据生成 SVG 中 path 元素的路径值，需要用到 d3.geo.path()，我称它为地理路径生成器。
+For the purpose of generating the path value for element path in SVG on the basis of geographic data of the map, the function d3.geo.path() should be utilized, which we call it geographic path generator.
 
 ```javascript
 var path = d3.geo.path()
     .projection(projection);
 ```
 
-projection() 是设定生成器的投影函数，把上面定义的投影传入即可。以后，当使用此生成器计算路径时，会自己加入投影的影响。
+projection() is the projection function to set generator, and we can just submit the projection defined above to this function. From now on, when the generator is utilized to calculate path, it will consider about the influence of projection automatically. 
 
 ## Request a file from the server and draw a map
 
