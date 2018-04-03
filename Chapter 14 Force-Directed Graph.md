@@ -1,85 +1,85 @@
 # Chapter 14 Force-Directed Graph
 
-Force-Directed Graph, 图的一种算法。在二维或三维空间里配置节点，节点之间用线连接，称为连线。各连线的长度几乎相等，且尽可能不相交。节点和连线都被施加了力的作用，力是根据节点和连线的相对位置计算的。根据力的作用，来计算节点和连线的运动轨迹，并不断降低它们的能量，最终达到一种能量很低的安定状态。
+Force-Directed Graph, is a kind of graphic algorithm. There are some nodes configued in a 2-dimension or 3-dimension space, and connected with links, which are called edges. The length of each edge is almost equal, and the edges try not to intersect with each other as much as possible. Both the nodes and edges are exerted force, and the force is calculated on the ground of the relative positions of nodes and edges. According to the role of force, the motion tracks of nodes and edges are calculated, and the energy of the whole graph is decreased as much as possible until it reachs a stable state with low energy. 
 
-![力导向图](./images/force-1.png)
+![Force-Directed Graph](./images/force-1.png)
 
-力导向图能表示节点之间的多对多的关系。
+Force-directed graphs can represent many-to-many relationships between nodes.
 
-## 数据
+## Data
 
-初始数据如下：
+Original data are as follows:
 
 ```javascript
-var nodes = [ { name: "桂林" }, { name: "广州" },
-              { name: "厦门" }, { name: "杭州" },
-              { name: "上海" }, { name: "青岛" },
-              { name: "天津" } ];
+var nodes = [ { name: "Guilin" }, { name: "Guangzhou" },
+              { name: "Xiamen" }, { name: "Hangzhou" },
+              { name: "Shanghai" }, { name: "Qingdao" },
+              { name: "Tianjin" } ];
  
  var edges = [ { source : 0 , target: 1 } , { source : 0 , target: 2 } ,
                { source : 0 , target: 3 } , { source : 1 , target: 4 } ,
                { source : 1 , target: 5 } , { source : 1 , target: 6 } ];
 ```
 
-节点（nodes）和连线（edges）的数组，节点是一些城市名，连线的两端是节点的序号（序号从 0 开始）。
+They are arrays of nodes and edges. Nodes are the city names, and the both ends of edges are the serial numbers of nodes(Serial numbers begin from 0).
 
-这些数据是不能作图的，因为不知道节点和连线的坐标。这句话一说出来，就请想到布局。本章用到的布局是：**d3.layout.force()**。
+These data can not be used to plot, because the coordinates of nodes and edges are unknown. This condition reminds us of layout. The lay out we want to use in this chapter is: **d3.layout.force()**.
 
-## 布局（数据转换）
+## Layout(data conversion)
 
-定义一个力导向图的布局如下。
+We can define a Force-Directed Graph as follows:
 
 ```javascript
 var force = d3.layout.force()
-      .nodes(nodes) //指定节点数组
-      .links(edges) //指定连线数组
-      .size([width,height]) //指定作用域范围
-      .linkDistance(150) //指定连线长度
-      .charge([-400]); //相互之间的作用力
+      .nodes(nodes) //Specify an array of nodes
+      .links(edges) //Specify an array of edges
+      .size([width,height]) //Specify the scope range
+      .linkDistance(150) //Specify the length of link
+      .charge([-400]); //Mutual force
 ```
 
-然后，使力学作用生效：
+Then, make force become effective:
 
 ```javascript
-force.start();    //开始作用
+force.start();    //Begin to work
 ```
 
-如此，数组 nodes 和 edges 的数据都发生了变化。在控制台输出一下，看看发生了什么变化。
+In this way, data of array nodes and edges have both changed. We can output it in the console and observe what happens. 
 
 ```javascript
 console.log(nodes);
 console.log(edges);
 ```
 
-节点转换前后如下图。
+The following figure shows the comparison between cases before and after node conversion.
 
-![节点转换前后](./images/force-2.png)
+![cases before and after node conversion](./images/force-2.png)
 
-转换后，节点对象里多了一些变量。其意义如下：
+After conversion, there are more variables in the node object. Their significances are as follows:
 
-- index：节点的索引号
-- px, py：节点上一个时刻的坐标
-- x, y：节点的当前坐标
-- weight：节点的权重
+- index: index of the node
+- px, py: The node coordinates of the last moment
+- x, y: the current coordinates of the node
+- weight: weight of the node
 
-再来看看连线的变化。
+Let's take a look at the changes in the edges.
 
-![连线转换前后](./images/force-3.png)
+![cases before and after edge conversion](./images/force-3.png)
 
-可以看到，连线的两个节点序号，分别变成了对应的节点对象。
+It is clear that the node serial numbers of one edge became corresponding objects respectively. 
 
-## 绘制
+## Plotting
 
-有了转换后的数据，就可以作图了。分别绘制三种图形元素：
+Now that we have the converted data, then we can settle down to plot. We can draw three types of graphic elements separately: 
 
-- line，线段，表示连线。
-- circle，圆，表示节点。
-- text，文字，描述节点。
+- line, represents the edge.
+- circle, represents the node.
+- text，describing the node. 
 
-代码如下：
+Code is shown as below:
 
 ```javascript
-//添加连线 
+//Add edges
  var svg_edges = svg.selectAll("line")
      .data(edges)
      .enter()
@@ -89,7 +89,7 @@ console.log(edges);
  
  var color = d3.scale.category20();
  
- //添加节点 
+ //Add nodes
  var svg_nodes = svg.selectAll("circle")
      .data(nodes)
      .enter()
@@ -98,9 +98,9 @@ console.log(edges);
      .style("fill",function(d,i){
          return color(i);
      })
-     .call(force.drag);  //使得节点能够拖动
+     .call(force.drag);  //make nodes can be dragged
 
- //添加描述节点的文字
+ //Add text describing nodes
  var svg_texts = svg.selectAll("text")
      .data(nodes)
      .enter()
@@ -113,39 +113,39 @@ console.log(edges);
      });
 ```
 
-调用 call( force.drag ) 后节点可被拖动。force.drag() 是一个函数，将其作为 call() 的参数，相当于将当前选择的元素传到 force.drag() 函数中。
+After function force.drag being called, the nodes can be dragged. Originally force.drag() is a function, but now we assign it as a parameter of call(), and this is equivalent to passing the currently selected element to the force.drag() function.
 
-最后，还有一段最重要的代码。由于力导向图是不断运动的，每一时刻都在发生更新，因此，必须不断更新节点和连线的位置。
+Finally, there is still some particularly important code. Due to the fact that the Force-Directed Graph keeps moving and updating, the location of nodes and connections must be constantly updated too.   
 
-力导向图布局 force 有一个事件 tick，每进行到一个时刻，都要调用它，更新的内容就写在它的监听器里就好。
+In the Force-Directed Graph layout, force has an event called 'tick'. After every certain period of time, 'tick' will be called, and the updated content is written in its monitor. 
 
 ```javascript
-force.on("tick", function(){ //对于每一个时间间隔
-    //更新连线坐标
+force.on("tick", function(){ //For each interval
+    //Update edge coordinates
     svg_edges.attr("x1",function(d){ return d.source.x; })
         .attr("y1",function(d){ return d.source.y; })
         .attr("x2",function(d){ return d.target.x; })
         .attr("y2",function(d){ return d.target.y; });
  
-    //更新节点坐标
+    //Update node coordinates
     svg_nodes.attr("cx",function(d){ return d.x; })
         .attr("cy",function(d){ return d.y; });
 
-    //更新文字坐标
+    //Update text coordinates
     svg_texts.attr("x", function(d){ return d.x; })
        .attr("y", function(d){ return d.y; });
  });
 ```
 
-tick 的英文意思是钟表发出的嘀嗒嘀嗒声，想到这个大家应该很清楚了吧。每次触发时，都会调用后面的无名函数 function。
+Every time tick is triggered, the following anonymous function will be called. 
 
-结果如图：
+The result is shown as:
 
-![结果](./images/force-4.png)
+![Results](./images/force-4.png)
 
 
-## 源代码
+## Source Code
 
-下载地址：[rm92.zip](http://www.ourd3js.com/src/rm/rm92.zip)
+Download Link: [rm92.zip](http://www.ourd3js.com/src/rm/rm92.zip)
 
-展示地址：[http://www.ourd3js.com/demo/rm/R-9.2/force.html](http://www.ourd3js.com/demo/rm/R-9.2/force.html)
+Presentation Link: [http://www.ourd3js.com/demo/rm/R-9.2/force.html](http://www.ourd3js.com/demo/rm/R-9.2/force.html)
