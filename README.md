@@ -1,4 +1,4 @@
-# EDAV Community Contribution of Huijun Cui
+# EDAV Community Contribution
 This is a translated edition of a Chinese getting started tutorial of D3.js. 
 
 The author of the tutorial is Zhihua lv, and the link for the original edition of the tutorial is: http://wiki.jikexueyuan.com/project/d3wiki/introduction.html 
